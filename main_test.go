@@ -16,14 +16,28 @@
 package main
 
 import (
-    "testing"
+	"io"
+	"testing"
 )
 
-func TestNextC (t *testing.T) {
-    start := 1
-    want := 561
-    got := nextC(start)
-    if got != want {
-        t.Fatalf("want: %v, got: %v", want, got)
-    }
+func TestNextC(t *testing.T) {
+	start := 1
+	want := 561
+	got := nextC(start)
+	if got != want {
+		t.Fatalf("want: %v, got: %v", want, got)
+	}
 }
+
+func benchmarkC(i int, b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		firstNC(i, io.Discard)
+	}
+}
+
+func BenchmarkC1(b *testing.B)  { benchmarkC(1, b) }
+func BenchmarkC2(b *testing.B)  { benchmarkC(2, b) }
+func BenchmarkC3(b *testing.B)  { benchmarkC(3, b) }
+func BenchmarkC10(b *testing.B) { benchmarkC(10, b) }
+func BenchmarkC20(b *testing.B) { benchmarkC(20, b) }
+func BenchmarkC50(b *testing.B) { benchmarkC(50, b) }
