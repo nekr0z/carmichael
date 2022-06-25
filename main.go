@@ -51,7 +51,7 @@ func nextC(n int) int {
 	return nextC(n + 1)
 }
 
-// isPrime is true if n is a prime number
+// isPrime returns true if n is a prime number
 func isPrime(n int) bool {
 	return (n == smallestDivisor(n))
 }
@@ -69,14 +69,14 @@ func findDivisor(n, g int) int {
 	if (n % g) == 0 {
 		return g
 	}
-	next := 3
-	if g != 2 {
-		next = g + 2
+	i := g + 2
+	if g == 2 {
+		i = 3
 	}
-	return findDivisor(n, next)
+	return findDivisor(n, i)
 }
 
-// pFermat is true if n passes Fermat test for primeness for every possible a
+// pFermat returns true if n passes Fermat test for primeness for every possible a < n
 func pFermat(n int) bool {
 	return fermatTestFull(n, n-1)
 }
