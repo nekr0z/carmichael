@@ -32,7 +32,7 @@ func main() {
 	firstNC(MaxInt, os.Stdout)
 }
 
-// firstNC outputs first n Carmichael numbers to w
+// firstNC outputs first num Carmichael numbers to w
 func firstNC(num int, w io.Writer) {
 	for n, i := 1, 1; i <= num; i++ {
 		start := time.Now()
@@ -43,12 +43,12 @@ func firstNC(num int, w io.Writer) {
 	}
 }
 
-// nextC finds the lowest Carmichael number equal to or bigger than start
-func nextC(start int) int {
-	if !isPrime(start) && pFermat(start) {
-		return start
+// nextC finds the lowest Carmichael number >= n
+func nextC(n int) int {
+	if !isPrime(n) && pFermat(n) {
+		return n
 	}
-	return nextC(start + 1)
+	return nextC(n + 1)
 }
 
 // isPrime is true if n is a prime number
@@ -61,7 +61,7 @@ func smallestDivisor(n int) int {
 	return findDivisor(n, 2)
 }
 
-// findDivisor searches for the divisor of n higher than or equal to g
+// findDivisor searches for the divisor of n >= g
 func findDivisor(n, g int) int {
 	if (square(g)) > n {
 		return n
@@ -69,10 +69,8 @@ func findDivisor(n, g int) int {
 	if (n % g) == 0 {
 		return g
 	}
-	var next int
-	if g == 2 {
-		next = 3
-	} else {
+	next := 3
+	if g != 2 {
 		next = g + 2
 	}
 	return findDivisor(n, next)
